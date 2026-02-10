@@ -232,6 +232,23 @@ class BrazePlugin {
     }
   }
 
+  /// Logs a click for the banner with the provided placement ID and button ID (if click is on specific button).
+  void logBannerClicked(String placementId, String? buttonId) {
+    final Map<String, dynamic> params = <String, dynamic>{
+      "placementId": placementId,
+      "buttonId": buttonId
+    };
+    _channel.invokeMethod('logBannerClicked', params);
+  }
+
+  /// Logs an impression for the banner with the provided placement ID.
+  void logBannerImpression(String placementId) {
+    final Map<String, dynamic> params = <String, dynamic>{
+      "placementId": placementId
+    };
+    _channel.invokeMethod('logBannerImpression', params);
+  }
+
   /// Logs a click for the provided in-app message data.
   void logInAppMessageClicked(BrazeInAppMessage inAppMessage) {
     final Map<String, dynamic> params = <String, dynamic>{
@@ -522,6 +539,9 @@ class BrazePlugin {
   }
 
   /// Registers a push token for the current device with Braze.
+  /// 
+  /// Only use this method if you are not already registering for push notifications in the 
+  /// native Android or iOS code of your application.
   void registerPushToken(String pushToken) {
     _callStringMethod('registerPushToken', 'pushToken', pushToken);
   }

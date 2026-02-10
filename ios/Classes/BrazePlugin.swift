@@ -169,6 +169,39 @@ public class BrazePlugin: NSObject, FlutterPlugin, BrazeSDKAuthDelegate {
           }
       }
 
+    case "logBannerClicked":
+      guard let args = call.arguments as? [String: Any],
+        let placementId = args["placementId"] as? String,
+        let braze = BrazePlugin.braze
+      else {
+        print(
+          "Invalid args: \(argsDescription), braze: \(String(describing: braze)), iOS method: \(call.method)"
+        )
+        return
+      }
+      let buttonId = args["buttonId"] as? String
+      BrazePlugin.braze?.banners.getBanner(for: placementId) { banner in
+        if let banner = banner {
+          banner.logClick(buttonId: buttonId, using: braze)
+        }
+      }
+    
+    case "logBannerImpression":
+      guard let args = call.arguments as? [String: Any],
+        let placementId = args["placementId"] as? String,
+        let braze = BrazePlugin.braze
+      else {
+        print(
+          "Invalid args: \(argsDescription), braze: \(String(describing: braze)), iOS method: \(call.method)"
+        )
+        return
+      }
+      BrazePlugin.braze?.banners.getBanner(for: placementId) { banner in
+        if let banner = banner {
+          banner.logImpression(using: braze)
+        }
+      }
+
     case "logInAppMessageClicked":
       guard let args = call.arguments as? [String: Any],
         let inAppMessageJSONString = args["inAppMessageString"] as? String,

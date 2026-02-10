@@ -1,3 +1,13 @@
+## 17.0.0
+
+##### Breaking
+- Updates the native iOS bridge [from Braze Swift SDK 13.3.0 to 14.0.1](https://github.com/braze-inc/braze-swift-sdk/compare/13.3.0...14.0.1#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed).
+- Updates the native Android bridge [from Braze Android SDK 40.0.0 to 41.0.0](https://github.com/braze-inc/braze-android-sdk/compare/v40.0.0...v41.0.0#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed).
+
+##### Added
+- Adds support for logging banner analytics to Braze using `BrazeBanner` instances.
+  - See `logBannerClicked(placementId:buttonId:)` and `logBannerImpression(placementId:)` on the `BrazePlugin` interface.
+
 ## 16.0.0
 
 ##### Breaking
@@ -9,7 +19,7 @@
 - Fixes UI flickering and display issues with `BrazeBannerView` when navigating between screens on Android
 
 ##### Added
-- - Updates the native iOS bridge [from Braze Swift SDK 13.2.0 to 13.3.0](https://github.com/braze-inc/braze-swift-sdk/compare/13.2.0...13.3.0#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed).
+- Updates the native iOS bridge [from Braze Swift SDK 13.2.0 to 13.3.0](https://github.com/braze-inc/braze-swift-sdk/compare/13.2.0...13.3.0#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed).
 
 ## 15.1.0
 

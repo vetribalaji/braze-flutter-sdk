@@ -236,6 +236,25 @@ class BrazePlugin : MethodCallHandler, FlutterPlugin, ActivityAware {
                     result.success("`requestBannersRefresh` called.")
                 }
 
+                "logBannerClicked" -> {
+                    val placementId = call.argument<String>("placementId")
+                    if (placementId == null) {
+                        brazelog(W) { "Unexpected null placementId in `logBannerClicked`." }
+                        return
+                    }
+                    val buttonId = call.argument<String?>("buttonId")
+                    getBrazeInstance(context).logBannerClick(placementId, buttonId)
+                }
+
+                "logBannerImpression" -> {
+                    val placementId = call.argument<String>("placementId")
+                    if (placementId == null) {
+                        brazelog(W) { "Unexpected null placementId in `logBannerImpression`." }
+                        return
+                    }
+                    getBrazeInstance(context).logBannerImpression(placementId)
+                }
+
                 "logInAppMessageClicked" -> {
                     getBrazeInstance(context)
                         .deserializeInAppMessageString(call.argument("inAppMessageString"))

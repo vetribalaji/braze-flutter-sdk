@@ -374,6 +374,85 @@ class BrazePluginTest {
     }
 
     @Test
+    fun whenLogBannerImpression_withValidPlacementId_logsBannerImpression() {
+        // Given
+        val placementId = "test_placement_id"
+        val arguments = mapOf("placementId" to placementId)
+
+        // When
+        val call = MethodCall("logBannerImpression", arguments)
+        brazePlugin.onMethodCall(call, mockMethodChannelResult)
+
+        // Then
+        verify(mockBraze).logBannerImpression(placementId)
+    }
+
+    @Test
+    fun whenLogBannerImpression_withNullPlacementId_returnsEarly() {
+        // Given
+        val arguments = mapOf<String, String?>("placementId" to null)
+
+        // When
+        val call = MethodCall("logBannerImpression", arguments)
+        brazePlugin.onMethodCall(call, mockMethodChannelResult)
+
+        // Then
+        verify(mockBraze, never()).logBannerImpression(any())
+    }
+
+    @Test
+    fun whenLogBannerClick_withValidPlacementId_logsBannerClick() {
+        // Given
+        val placementId = "test_placement_id"
+        val buttonId = "test_button_id"
+        val arguments = mapOf(
+            "placementId" to placementId,
+            "buttonId" to buttonId
+        )
+
+        // When
+        val call = MethodCall("logBannerClicked", arguments)
+        brazePlugin.onMethodCall(call, mockMethodChannelResult)
+
+        // Then
+        verify(mockBraze).logBannerClick(placementId, buttonId)
+    }
+
+    @Test
+    fun whenLogBannerClick_withNullButtonId_logsBannerClick() {
+        // Given
+        val placementId = "test_placement_id"
+        val arguments = mapOf(
+            "placementId" to placementId,
+            "buttonId" to null
+        )
+
+        // When
+        val call = MethodCall("logBannerClicked", arguments)
+        brazePlugin.onMethodCall(call, mockMethodChannelResult)
+
+        // Then
+        verify(mockBraze).logBannerClick(placementId, null)
+    }
+
+    @Test
+    fun whenLogBannerClick_withNullPlacementId_returnsEarly() {
+        // Given
+        val buttonId = "test_button_id"
+        val arguments = mapOf(
+            "placementId" to null,
+            "buttonId" to buttonId
+        )
+
+        // When
+        val call = MethodCall("logBannerClicked", arguments)
+        brazePlugin.onMethodCall(call, mockMethodChannelResult)
+
+        // Then
+        verify(mockBraze, never()).logBannerClick(any(), any())
+    }
+
+    @Test
     fun whenLogInAppMessageClicked_withValidMessageString_logsMessageClick() {
         // Given
         val inAppMessageString = "test_in_app_message_string"

@@ -81,7 +81,7 @@ class BrazeFunctionsState extends State<BrazeFunctions> {
   String? _displayedPlacement = "sdk-test-2";
 
   // Change to `true` to automatically log clicks, button clicks,
-  // and impressions for in-app messages and content cards.
+  // and impressions for in-app messages, content cards, and banners.
   final automaticallyInteract = false;
 
   void initState() {
@@ -937,7 +937,7 @@ class BrazeFunctionsState extends State<BrazeFunctions> {
     // Programmatically log impression, body click, and any button clicks
     if (automaticallyInteract) {
       print(
-          "Logging impression, body click, and button clicks programmatically.");
+          "Logging In-app message impression, body click, and button clicks programmatically.");
       _braze.logInAppMessageImpression(inAppMessage);
       _braze.logInAppMessageClicked(inAppMessage);
       inAppMessage.buttons.forEach((button) {
@@ -961,7 +961,7 @@ class BrazeFunctionsState extends State<BrazeFunctions> {
 
       // Programmatically log impression, card click, and dismissal
       if (automaticallyInteract) {
-        print("Logging impression and body click programmatically.");
+        print("Logging Content Card impression and body click programmatically.");
         _braze.logContentCardImpression(contentCard);
         _braze.logContentCardClicked(contentCard);
         // _braze.logContentCardDismissed(contentCard);
@@ -981,6 +981,15 @@ class BrazeFunctionsState extends State<BrazeFunctions> {
       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
         content: new Text("Received banner: ${banner.toString()}"),
       ));
+
+      // Programmatically log impression, clicks
+      if (automaticallyInteract) {
+        print(
+            "Logging Banner impression, body click, and button clicks programmatically.");
+        _braze.logBannerImpression(banner.placementId);
+        _braze.logBannerClicked(banner.placementId, null);
+        _braze.logBannerClicked(banner.placementId, "testId");
+      }
     });
   }
 

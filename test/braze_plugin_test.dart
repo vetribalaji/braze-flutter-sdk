@@ -239,6 +239,51 @@ void main() {
       ),
     ]);
   });
+  
+  test('should call logBannerImpression', () {
+    BrazePlugin _braze = new BrazePlugin();
+    final placementId = 'placement1';
+    _braze.logBannerImpression(placementId);
+    expect(log, <Matcher>[
+      isMethodCall(
+        'logBannerImpression',
+        arguments: <String, dynamic>{
+          'placementId': placementId
+        },
+      ),
+    ]);
+  });
+
+  test('should call logBannerClicked', () {
+    BrazePlugin _braze = new BrazePlugin();
+    final placementId = 'placement1';
+    final buttonId = 'button1';
+    _braze.logBannerClicked(placementId, buttonId);
+    expect(log, <Matcher>[
+      isMethodCall(
+        'logBannerClicked',
+        arguments: <String, dynamic>{
+          'placementId': placementId,
+          'buttonId': buttonId
+        },
+      ),
+    ]);
+  });
+
+  test('should call logBannerClicked with no buttonId', () {
+    BrazePlugin _braze = new BrazePlugin();
+    final placementId = 'placement1';
+    _braze.logBannerClicked(placementId, null);
+    expect(log, <Matcher>[
+      isMethodCall(
+        'logBannerClicked',
+        arguments: <String, dynamic>{
+          'placementId': placementId,
+          'buttonId': null
+        },
+      ),
+    ]);
+  });
 
   test('should call getDeviceId', () async {
     BrazePlugin _braze = new BrazePlugin();

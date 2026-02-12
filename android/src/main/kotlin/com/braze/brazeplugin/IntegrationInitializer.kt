@@ -104,6 +104,7 @@ object IntegrationInitializer {
             inAppMessage: IInAppMessage
         ): InAppMessageOperation {
             super.beforeInAppMessageDisplayed(inAppMessage)
+            BrazeInAppMessageManager.getInstance().setBackButtonDismissesInAppMessageView(false)
             BrazePlugin.processInAppMessage(inAppMessage)
             brazelog {
                 "Returning $defaultInAppMessageOperation in Flutter automatic integration " +
